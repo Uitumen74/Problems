@@ -3,7 +3,7 @@ package LeetCode;
 public class BestTimetoBuyandSellStockII {
 
     public static void main(String args[]) {
-        int[] n = {1, 2, 3, 4, 5};
+        int[] n = {7, 6, 4, 3, 1};
         int c = maxProfit(n);
         System.out.println(c);
     }
@@ -11,22 +11,26 @@ public class BestTimetoBuyandSellStockII {
     static public int maxProfit(int[] prices) {
         int sum = 0;
         int b = prices[0];
-        int s = prices[1];
-        int l = 0;
+        int s = Integer.MIN_VALUE;
         for (int i = 1; i < prices.length - 1; i++) {
-            if (prices[i] <= b) {
-                if (l == 1) {
-                    sum += (s - b);
-                    s = prices[i + 1];
-                    l = 0;
-                }
+            if (s != Integer.MIN_VALUE && prices[i] < s) {
+                sum += (s - b);
+                s = Integer.MIN_VALUE;
                 b = prices[i];
-            } else if (prices[i] > b) {
+            } else if (prices[i] < b) {
+                b = prices[i];
+            } else if (prices[i] >= b) {
                 if (prices[i] >= s) {
                     s = prices[i];
-                    l = 1;
+                } else if (prices[i] < s) {
+                    sum += (s - b);
+                    b = prices[i];
+                    s = Integer.MIN_VALUE;
                 }
             }
+        }
+        if (prices[prices.length - 1] > s) {
+            s = prices[prices.length - 1];
         }
         if (s > b) {
             sum += (s - b);
