@@ -14,7 +14,7 @@ public class RotatedDigits {
         int bit, step1, step2, c;
         for (int i = 1; i <= n; i++) {
             bit = 0;
-            step1 = 0;
+            step1 = 0; 
             step2 = 0;
             k = i;
             while (k != 0) {
